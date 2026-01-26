@@ -6,9 +6,9 @@ from flask_cors import CORS
 import joblib
 
 # =========================
-# Gemini AI
+# Gemini AI (SUPPORTED SDK)
 # =========================
-import google.generativeai as genai
+from google import genai
 
 # =========================
 # Load ML Models
@@ -25,21 +25,17 @@ diabetes_model = joblib.load(
     os.path.join(BASE_DIR, "diabetes_prediction_model.pkl")
 )
 
-# =========================
-# Mental Wellness Model (NEW)
-# =========================
+# Mental Wellness Model
 mental_wellness_model = joblib.load(
     os.path.join(BASE_DIR, "mental_wellness_model.pkl")
 )
 
 # =========================
-# Gemini Configuration
+# Gemini Client Configuration
 # =========================
-genai.configure(
-    api_key=os.environ.get("GEMINI_API_KEY") or "AIzaSyDmnXmATVPgIEsf6wn9QnJUgux4n__G0fk"
+client = genai.Client(
+    api_key=os.environ.get("GEMINI_API_KEY")
 )
-
-gemini_model = genai.GenerativeModel("gemini-1.0-pro")
 
 # =========================
 # Flask App
@@ -77,18 +73,17 @@ def predict_eye_risk():
 
     return jsonify({
         "risk_level": int(prediction),
-        "result": result_map[prediction]
+        "result": result_map[int(prediction)]
     })
 
 # =========================
-# Diabetes Prediction (FINAL FIX)
+# Diabetes Prediction
 # =========================
 @app.route("/predict-diabetes", methods=["POST"])
 def predict_diabetes():
     try:
         data = request.json
 
-        # Base inputs from Flutter
         base_features = [
             float(data["age"]),
             float(data["bmi"]),
@@ -96,7 +91,6 @@ def predict_diabetes():
             float(data["glucose"])
         ]
 
-        # Match model expected feature count
         expected_features = diabetes_model.n_features_in_
         missing = expected_features - len(base_features)
 
@@ -104,7 +98,6 @@ def predict_diabetes():
             base_features.extend([0.0] * missing)
 
         features = np.array([base_features])
-
         prediction = diabetes_model.predict(features)[0]
 
         return jsonify({
@@ -117,13 +110,12 @@ def predict_diabetes():
         return jsonify({"error": str(e)}), 400
 
 # =========================
-# Mental Wellness Prediction (NEW)
+# Mental Wellness Prediction
 # =========================
 @app.route("/predict-mental-wellness", methods=["POST"])
 def predict_mental_wellness():
     try:
         data = request.json
-
         answers = data.get("answers", [])
 
         if not answers or len(answers) != 42:
@@ -132,7 +124,6 @@ def predict_mental_wellness():
             }), 400
 
         features = np.array([answers])
-
         prediction = mental_wellness_model.predict(features)[0]
 
         result_map = {
@@ -154,7 +145,7 @@ def predict_mental_wellness():
         }), 500
 
 # =========================
-# Health Assistant
+# Health Assistant (FIXED)
 # =========================
 @app.route("/health-assistant", methods=["POST"])
 def health_assistant():
@@ -178,7 +169,10 @@ User question:
 {user_message}
 """
 
-        response = gemini_model.generate_content(prompt)
+        response = client.models.generate_content(
+            model="gemini-1.5-flash",
+            contents=prompt
+        )
 
         return jsonify({
             "reply": response.text
