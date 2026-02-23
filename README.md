@@ -84,3 +84,4 @@ The final deployed model was selected based on best performance after algorithm 
 
 Frontend:
 https://medivision-ai-a30fb.web.app/
+The first request take one minute !
