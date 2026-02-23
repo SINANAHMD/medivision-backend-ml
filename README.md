@@ -80,8 +80,7 @@ The final deployed model was selected based on best performance after algorithm 
 
 ---
 
-## 🔧 How to Run Backend Locally
+## 🌐 Live Web App
 
-```bash
-pip install -r requirements.txt
-python app.py
+Frontend:
+https://medivision-ai-a30fb.web.app/
