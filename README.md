@@ -1,87 +1,117 @@
-# 👁 MediVision – Eye Vision Risk Prediction System
+# 🧠 MediVision – AI-Based Health Risk Prediction System
 
-MediVision Eye Risk Predictor is a Machine Learning based health screening module designed to analyze digital eye strain risk using user input data.
-
-This module predicts whether a user has:
-
-- Normal Vision
-- Mild Vision Risk
-- High Vision Risk
+MediVision is a Machine Learning powered health screening application designed to predict early health risks using user inputs. The system integrates multiple ML models with a Flutter frontend and a Flask backend.
 
 ---
 
-## 📌 Problem Statement
+## 🚀 Project Overview
 
-With increasing screen time due to mobile phones, laptops, and digital devices, many individuals experience digital eye strain. Early detection of eye risk levels can help users take preventive measures and improve eye health habits.
+MediVision focuses on early risk detection in three major areas:
 
-This system provides a simple screening tool to classify eye vision risk based on behavioral and test-based inputs.
+1. 👁 Eye Vision Risk Prediction  
+2. 🩸 Diabetes Risk Prediction  
+3. 🧘 Mental Wellness Risk Assessment  
 
----
-
-## 📊 Input Features
-
-The model uses the following features:
-
-1. Minimum Font Size Read  
-2. Error Count in Letter Test  
-3. Daily Screen Time (hours/day)  
-4. Eye Strain (Yes/No)  
-5. Headache After Screen Use (Yes/No)  
-6. Viewing Distance (cm)  
-
-These inputs are collected through a Flutter-based user interface.
-
----
-
-## 🎯 Output Classes
-
-The model predicts one of the following risk levels:
-
-- 0 → Normal Vision  
-- 1 → Mild Vision Risk  
-- 2 → High Vision Risk  
-
-The result is returned through a Flask REST API.
-
----
-
-## 🧠 Machine Learning Workflow
-
-1. Synthetic dataset generation (health-pattern based rules)
-2. Data preprocessing
-3. Missing value handling
-4. Feature selection
-5. Dataset balancing (to avoid class bias)
-6. Train-test split (80% training, 20% testing)
-7. Algorithm comparison (Decision Tree, Random Forest, etc.)
-8. Final model selection based on accuracy
-9. Model export using Joblib (.pkl)
-10. Backend deployment
-
----
-
-## 📈 Model Evaluation
-
-- Accuracy Score used for performance evaluation
-- Confusion Matrix for classification analysis
-- Balanced dataset used to improve model fairness
-
-The final deployed model was selected based on best performance after algorithm comparison.
+The system allows users to input health-related data and receive a risk classification in real time.
 
 ---
 
 ## 🏗 System Architecture
 
-- Frontend: Flutter (Web + Android)
-- Backend: Flask (Python)
-- ML Library: Scikit-learn
-- Model Storage: Joblib (.pkl file)
-- Deployment: Render (Backend API)
+- **Frontend:** Flutter (Web + Android)
+- **Backend:** Python Flask API
+- **Machine Learning:** Scikit-learn
+- **Deployment:** Render (Backend), Web Hosting for Flutter
+- **Model Storage:** Joblib (.pkl files)
 
 ---
+
+## 👁 Eye Vision Risk Predictor
+
+### 📌 Problem
+Excessive screen time and poor digital habits increase the risk of eye strain and vision issues.
+
+### 📊 Input Features
+- Minimum font size readable
+- Error count in letter test
+- Daily screen time (hours)
+- Eye strain (Yes/No)
+- Headache (Yes/No)
+- Viewing distance (cm)
+
+### 🎯 Output Classes
+- Normal Vision
+- Mild Vision Risk
+- High Vision Risk
+
+### 🔍 Model Details
+- Multiple algorithms tested (Decision Tree, Random Forest, etc.)
+- Dataset balancing performed using oversampling
+- Final model selected based on accuracy comparison
+
+---
+
+## 🩸 Diabetes Risk Prediction
+
+### 📌 Problem
+Early detection of diabetes risk using basic health parameters.
+
+### 📊 Input Features
+- Age
+- BMI
+- Blood Pressure
+- Glucose Level
+
+### 🎯 Output
+- Low Risk
+- High Risk
+
+---
+
+## 🧘 Mental Wellness Assessment
+
+### 📌 Problem
+Mental health conditions such as stress, anxiety, and depression often go undetected.
+
+### 📊 Input
+- 42-question structured questionnaire
+
+### 🎯 Output Classes
+- Normal
+- Stress Risk
+- Anxiety Risk
+- Depression Risk
+
+---
+
+## 🧠 Machine Learning Workflow
+
+1. Data Collection / Synthetic Dataset Creation
+2. Data Cleaning
+3. Missing Value Handling
+4. Feature Selection
+5. Dataset Balancing
+6. Train-Test Split (80/20)
+7. Algorithm Comparison
+8. Model Selection
+9. Model Export (.pkl using joblib)
+10. Backend Deployment
+
+---
+
+## 📈 Model Evaluation
+
+- Accuracy Score
+- Confusion Matrix
+- Algorithm Comparison
+- Balanced vs Unbalanced Dataset Analysis
+
+The final deployed models were selected based on highest accuracy and generalization performance.
+
+
 
 ## 🌐 Live Web App
 
 Frontend:
 https://medivision-ai-a30fb.web.app/
-The first request take one minute !
+In the model The first request take one minute !
